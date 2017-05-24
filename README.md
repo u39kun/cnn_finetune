@@ -6,11 +6,11 @@ See [this](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.ht
 
 ## Usage
 
-"VGG-16"
+**VGG-16**
 
 model = vgg16_model(img_rows, img_cols, channel, nb_classes, freeze)
 
-"VGG-19"
+**VGG-19**
 
 model = vgg19_model(img_rows, img_cols, channel, nb_classes)
 
@@ -18,7 +18,7 @@ model = vgg19_model(img_rows, img_cols, channel, nb_classes)
 
 model = inception_v3_model(img_rows, img_cols, channel, nb_classes)
 
-"Inception-V4"
+**"Inception-V4"**
 
 model = inception_v4_model(img_rows, img_cols, channel, nb_classes, dropout_keep_prob=0.2)
 
