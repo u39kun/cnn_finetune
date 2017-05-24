@@ -64,7 +64,7 @@ def vgg16_model(img_rows, img_cols, channel=1, num_classes=None, freeze=0):
     model.add(Dense(1000, activation='softmax'))
 
     # Loads ImageNet pre-trained data
-    model.load_weights('imagenet_models/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
+    model.load_weights('magenet_models/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
 
     # Truncate and replace softmax layer for transfer learning
     model.layers.pop()
