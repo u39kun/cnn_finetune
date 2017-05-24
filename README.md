@@ -35,5 +35,5 @@ DenseNet-161 | [model (112 MB)](https://drive.google.com/open?id=0Byy2AcGyEVxfVn
 
 ## Requirements
 
-* Keras 1.2.2
-* Theano 0.8.2 or TensorFlow 0.12.0
+* Keras 2.0.3
+* TensorFlow 1.1.0
