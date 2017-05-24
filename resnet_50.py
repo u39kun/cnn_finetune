@@ -2,14 +2,11 @@
 
 from keras.models import Sequential
 from keras.optimizers import SGD
-from keras.layers import Input, Dense, Convolution2D, MaxPooling2D, AveragePooling2D, ZeroPadding2D, Dropout, Flatten, merge, Reshape, Activation
+from keras.layers import Input, Dense, Conv2D, MaxPooling2D, AveragePooling2D, ZeroPadding2D, Flatten, Activation
+from keras.layers.merge import add
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras import backend as K
-
-from sklearn.metrics import log_loss
-
-from load_cifar10 import load_cifar10_data
 
 def identity_block(input_tensor, kernel_size, filters, stage, block):
     """
@@ -26,19 +23,19 @@ def identity_block(input_tensor, kernel_size, filters, stage, block):
     conv_name_base = 'res' + str(stage) + block + '_branch'
     bn_name_base = 'bn' + str(stage) + block + '_branch'
 
-    x = Convolution2D(nb_filter1, 1, 1, name=conv_name_base + '2a')(input_tensor)
+    x = Conv2D(nb_filter1, (1, 1), name=conv_name_base + '2a')(input_tensor)
     x = BatchNormalization(axis=bn_axis, name=bn_name_base + '2a')(x)
     x = Activation('relu')(x)
 
-    x = Convolution2D(nb_filter2, kernel_size, kernel_size,
-                      border_mode='same', name=conv_name_base + '2b')(x)
+    x = Conv2D(nb_filter2, (kernel_size, kernel_size),
+                      padding='same', name=conv_name_base + '2b')(x)
     x = BatchNormalization(axis=bn_axis, name=bn_name_base + '2b')(x)
     x = Activation('relu')(x)
 
-    x = Convolution2D(nb_filter3, 1, 1, name=conv_name_base + '2c')(x)
+    x = Conv2D(nb_filter3, (1, 1), name=conv_name_base + '2c')(x)
     x = BatchNormalization(axis=bn_axis, name=bn_name_base + '2c')(x)
 
-    x = merge([x, input_tensor], mode='sum')
+    x = add([x, input_tensor])
     x = Activation('relu')(x)
     return x
 
@@ -59,24 +56,24 @@ def conv_block(input_tensor, kernel_size, filters, stage, block, strides=(2, 2))
     conv_name_base = 'res' + str(stage) + block + '_branch'
     bn_name_base = 'bn' + str(stage) + block + '_branch'
 
-    x = Convolution2D(nb_filter1, 1, 1, subsample=strides,
+    x = Conv2D(nb_filter1, (1, 1), strides=strides,
                       name=conv_name_base + '2a')(input_tensor)
     x = BatchNormalization(axis=bn_axis, name=bn_name_base + '2a')(x)
     x = Activation('relu')(x)
 
-    x = Convolution2D(nb_filter2, kernel_size, kernel_size, border_mode='same',
+    x = Conv2D(nb_filter2, (kernel_size, kernel_size), padding='same',
                       name=conv_name_base + '2b')(x)
     x = BatchNormalization(axis=bn_axis, name=bn_name_base + '2b')(x)
     x = Activation('relu')(x)
 
-    x = Convolution2D(nb_filter3, 1, 1, name=conv_name_base + '2c')(x)
+    x = Conv2D(nb_filter3, (1, 1), name=conv_name_base + '2c')(x)
     x = BatchNormalization(axis=bn_axis, name=bn_name_base + '2c')(x)
 
-    shortcut = Convolution2D(nb_filter3, 1, 1, subsample=strides,
+    shortcut = Conv2D(nb_filter3, (1, 1), strides=strides,
                              name=conv_name_base + '1')(input_tensor)
     shortcut = BatchNormalization(axis=bn_axis, name=bn_name_base + '1')(shortcut)
 
-    x = merge([x, shortcut], mode='sum')
+    x = add([x, shortcut])
     x = Activation('relu')(x)
     return x
 
@@ -106,7 +103,7 @@ def resnet50_model(img_rows, img_cols, color_type=1, num_classes=None):
       img_input = Input(shape=(color_type, img_rows, img_cols))
 
     x = ZeroPadding2D((3, 3))(img_input)
-    x = Convolution2D(64, 7, 7, subsample=(2, 2), name='conv1')(x)
+    x = Conv2D(64, (7, 7), strides=(2, 2), name='conv1')(x)
     x = BatchNormalization(axis=bn_axis, name='bn_conv1')(x)
     x = Activation('relu')(x)
     x = MaxPooling2D((3, 3), strides=(2, 2))(x)
@@ -164,35 +161,3 @@ def resnet50_model(img_rows, img_cols, color_type=1, num_classes=None):
     model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
   
     return model
-
-if __name__ == '__main__':
-
-    # Example to fine-tune on 3000 samples from Cifar10
-
-    img_rows, img_cols = 224, 224 # Resolution of inputs
-    channel = 3
-    num_classes = 10 
-    batch_size = 16 
-    nb_epoch = 10
-
-    # Load Cifar10 data. Please implement your own load_data() module for your own dataset
-    X_train, Y_train, X_valid, Y_valid = load_cifar10_data(img_rows, img_cols)
-
-    # Load our model
-    model = resnet50_model(img_rows, img_cols, channel, num_classes)
-
-    # Start Fine-tuning
-    model.fit(X_train, Y_train,
-              batch_size=batch_size,
-              nb_epoch=nb_epoch,
-              shuffle=True,
-              verbose=1,
-              validation_data=(X_valid, Y_valid),
-              )
-
-    # Make predictions
-    predictions_valid = model.predict(X_valid, batch_size=batch_size, verbose=1)
-
-    # Cross-entropy loss score
-    score = log_loss(Y_valid, predictions_valid)
-
