@@ -6,29 +6,29 @@ See [this](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.ht
 
 ## Usage
 
-**VGG-16**
+**|VGG-16|**
 
 `model = vgg16_model(img_rows, img_cols, channel, nb_classes, freeze)`
 
 **VGG-19**
 
-model = vgg19_model(img_rows, img_cols, channel, nb_classes)
+`model = vgg19_model(img_rows, img_cols, channel, nb_classes)`
 
-"Inception-V3"
+**Inception-V3"**
 
-model = inception_v3_model(img_rows, img_cols, channel, nb_classes)
+`model = inception_v3_model(img_rows, img_cols, channel, nb_classes)`
 
-**"Inception-V4"**
+**Inception-V4**
 
-model = inception_v4_model(img_rows, img_cols, channel, nb_classes, dropout_keep_prob=0.2)
+`model = inception_v4_model(img_rows, img_cols, channel, nb_classes, dropout_keep_prob=0.2)`
 
-"ResNet-50", "ResNet-101", "ResNet-152"
+**ResNet-50, ResNet-101, ResNet-152**
 
-model = resnet50_model(img_rows, img_cols, channel, nb_classes)
+`odel = resnet50_model(img_rows, img_cols, channel, nb_classes)`
 
 "DenseNet-121", "DenseNet-161", "DenseNet-169"
 
-model = densenet121_model(img_rows, img_cols, color_type=channel, num_classes=nb_classes)
+`model = densenet121_model(img_rows, img_cols, color_type=channel, num_classes=nb_classes)`
 
 ## ImageNet Pretrained Models
 
