@@ -1,21 +1,8 @@
 # Fine-tune Convolutional Neural Network in Keras with ImageNet Pretrained Models
 
-The reason to create this repo is that there are not many online resources that provide sample codes for performing fine-tuning, and that there is not a centralized place where we can easily download ImageNet pretrained models for common ConvNet architectures such as VGG, Inception, ResNet, and DenseNet. This repo serves to fill this gap by providing working examples of fine-tuning on Cifar10 dataset with ImageNet pretrained models on popular ConvNet implementations.
+The reason to create this repo is that there are not many online resources that provide sample codes for performing fine-tuning, and that there is not a centralized place where we can easily download ImageNet pretrained models for common ConvNet architectures such as VGG, Inception, ResNet, and DenseNet.
 
 See [this](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.html) for a comprehensive treatment of fine-tuning Deep Learning Models in Keras
-
-## Usage
-
-For illustration purpose, let's say you want to perform fine-tuning with VGG-16. First, download the ImageNet pretrained weights for VGG-16 to the `imagenet_models` directory. The schema and sample code for fine-tuning on Cifar10 can be found in `vgg16.py`. Run the file:
-
-```
-python vgg16.py
-```
-
-The code will automatically download Cifar10 dataset and performs fine-tuning with VGG-16. Please be aware that it might take some time (up to minutes) for the model to compile and load the ImageNet weights. 
-
-If you wish to perform fine-tuning on your own dataset, you have to replace the module which loads the Cifar10 dataset with your own load_data() module to load your own dataset.
-
 
 ## ImageNet Pretrained Models
 
