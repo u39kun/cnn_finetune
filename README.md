@@ -8,7 +8,7 @@ See [this](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.ht
 
 **VGG-16**
 
-'model = vgg16_model(img_rows, img_cols, channel, nb_classes, freeze)'
+`model = vgg16_model(img_rows, img_cols, channel, nb_classes, freeze)`
 
 **VGG-19**
 
