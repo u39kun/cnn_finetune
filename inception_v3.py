@@ -31,7 +31,7 @@ def conv2d_bn(x, nb_filter, nb_row, nb_col,
 
 def inception_v3_model(img_rows, img_cols, channel=1, num_classes=None):
     """
-    Inception-V Model for Keras
+    Inception-V3 Model for Keras
 
     Model Schema is based on 
     https://github.com/fchollet/deep-learning-models/blob/master/inception_v3.py
