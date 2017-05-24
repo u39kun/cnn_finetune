@@ -89,7 +89,7 @@ def densenet121_model(img_rows, img_cols, color_type=1, nb_dense_block=4, growth
       weights_path = 'imagenet_models/densenet121_weights_th.h5'
     else:
       # Use pre-trained weights for Tensorflow backend
-      weights_path = 'flyyufelix_models/imagenet_models/densenet121_weights_tf.h5'
+      weights_path = 'imagenet_models/densenet121_weights_tf.h5'
 
     model.load_weights(weights_path, by_name=True)
 
