@@ -10,23 +10,23 @@ See [this](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.ht
 
 `model = vgg16_model(img_rows, img_cols, channel, nb_classes, freeze)`
 
-**VGG-19**
+**|VGG-19|**
 
 `model = vgg19_model(img_rows, img_cols, channel, nb_classes)`
 
-**Inception-V3"**
+**|Inception-V3|**
 
 `model = inception_v3_model(img_rows, img_cols, channel, nb_classes)`
 
-**Inception-V4**
+**|Inception-V4|**
 
 `model = inception_v4_model(img_rows, img_cols, channel, nb_classes, dropout_keep_prob=0.2)`
 
-**ResNet-50, ResNet-101, ResNet-152**
+**|ResNet-50/ResNet-101/ResNet-152|**
 
 `odel = resnet50_model(img_rows, img_cols, channel, nb_classes)`
 
-"DenseNet-121", "DenseNet-161", "DenseNet-169"
+**|DenseNet-121/DenseNet-161/DenseNet-169|**
 
 `model = densenet121_model(img_rows, img_cols, color_type=channel, num_classes=nb_classes)`
 
