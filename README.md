@@ -24,7 +24,7 @@ See [this](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.ht
 
 **|ResNet-50/ResNet-101/ResNet-152|**
 
-`odel = resnet50_model(img_rows, img_cols, channel, nb_classes)`
+`model = resnet50_model(img_rows, img_cols, channel, nb_classes)`
 
 **|DenseNet-121/DenseNet-161/DenseNet-169|**
 
