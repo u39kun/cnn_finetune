@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from keras.optimizers import SGD
 from keras.layers import Input, ZeroPadding2D
 from keras.layers.merge import concatenate
@@ -44,10 +46,10 @@ def densenet169_model(img_rows, img_cols, color_type=1, nb_dense_block=4, growth
     global concat_axis
     if K.image_dim_ordering() == 'tf':
       concat_axis = 3
-      img_input = Input(shape=(224, 224, 3), name='data')
+      img_input = Input(shape=(img_rows, img_cols, color_type), name='data')
     else:
       concat_axis = 1
-      img_input = Input(shape=(3, 224, 224), name='data')
+      img_input = Input(shape=(color_type, img_rows, img_cols), name='data')
 
     # From architecture for ImageNet (Table 1 in the paper)
     nb_filter = 64
@@ -91,7 +93,7 @@ def densenet169_model(img_rows, img_cols, color_type=1, nb_dense_block=4, growth
       # Use pre-trained weights for Tensorflow backend
       weights_path = 'imagenet_models/densenet169_weights_tf.h5'
 
-    model.load_weights(weights_path, by_name=True)
+    model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), weights_path), by_name=True)
 
     # Truncate and replace softmax layer for transfer learning
     # Cannot use model.layers.pop() since model is not of Sequential() type

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from keras.optimizers import SGD
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, AveragePooling2D, Flatten, Activation
 from keras.layers.merge import concatenate
@@ -227,8 +229,9 @@ def inception_v3_model(img_rows, img_cols, channel=1, num_classes=None):
     # Create model
     model = Model(img_input, x_fc)
 
-    # Load ImageNet pre-trained data 
-    model.load_weights('imagenet_models/inception_v3_weights_tf_dim_ordering_tf_kernels.h5')
+    # Load ImageNet pre-trained data
+    weights_path = 'imagenet_models/inception_v3_weights_tf_dim_ordering_tf_kernels.h5'
+    model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), weights_path))
 
     # Truncate and replace softmax layer for transfer learning
     # Cannot use model.layers.pop() since model is not of Sequential() type

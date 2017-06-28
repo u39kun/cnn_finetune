@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from keras.models import Sequential
 from keras.optimizers import SGD
 from keras.layers import Dense, Conv2D, MaxPooling2D, ZeroPadding2D, Dropout, Flatten
@@ -72,7 +74,8 @@ def vgg19_model(img_rows, img_cols, channel=1, num_classes=None):
     model.add(Dense(1000, activation='softmax'))
 
     # Loads ImageNet pre-trained data
-    model.load_weights('imagenet_models/vgg19_weights_tf_dim_ordering_tf_kernels.h5')
+    weights_path = 'imagenet_models/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
+    model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), weights_path))
 
     # Truncate and replace softmax layer for transfer learning
     model.layers.pop()

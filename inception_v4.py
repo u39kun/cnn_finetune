@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from keras.models import Sequential
 from keras.optimizers import SGD
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, AveragePooling2D, Dropout, Flatten, Activation
@@ -245,7 +247,7 @@ def inception_v4_model(img_rows, img_cols, color_type=1, num_classes=None, dropo
       # Use pre-trained weights for Tensorflow backend
       weights_path = 'imagenet_models/inception-v4_weights_tf_dim_ordering_tf_kernels.h5'
 
-    model.load_weights(weights_path, by_name=True)
+    model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), weights_path), by_name=True)
 
     # Truncate and replace softmax layer for transfer learning
     # Cannot use model.layers.pop() since model is not of Sequential() type

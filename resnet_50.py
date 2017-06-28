@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from keras.models import Sequential
 from keras.optimizers import SGD
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, AveragePooling2D, ZeroPadding2D, Flatten, Activation
@@ -144,7 +146,7 @@ def resnet50_model(img_rows, img_cols, color_type=1, num_classes=None):
       # Use pre-trained weights for Tensorflow backend
       weights_path = 'imagenet_models/resnet50_weights_tf_dim_ordering_tf_kernels.h5'
 
-    model.load_weights(weights_path)
+    model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), weights_path))
 
     # Truncate and replace softmax layer for transfer learning
     # Cannot use model.layers.pop() since model is not of Sequential() type

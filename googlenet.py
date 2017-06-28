@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from keras.optimizers import SGD
 from keras.layers import Input, Dense, Convolution2D, MaxPooling2D, AveragePooling2D, ZeroPadding2D, Dropout, Flatten, merge, Reshape, Activation
 from keras.datasets import cifar10
@@ -158,8 +160,9 @@ def googlenet_model(img_rows, img_cols, channel=1, num_classes=None):
     # Create model
     model = Model(input=input, output=[loss1_classifier_act,loss2_classifier_act,loss3_classifier_act])
     
-    # Load ImageNet pre-trained data 
-    model.load_weights('imagenet_models/googlenet_weights.h5')
+    # Load ImageNet pre-trained data
+    weights_path = 'imagenet_models/googlenet_weights.h5'
+    model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), weights_path))
 
     # Truncate and replace softmax layer for transfer learning
     # Cannot use model.layers.pop() since model is not of Sequential() type
